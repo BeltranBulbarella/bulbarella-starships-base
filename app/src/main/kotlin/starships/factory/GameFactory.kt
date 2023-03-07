@@ -1,21 +1,23 @@
-package edu.austral.ingsis.starships.factory
+package starships.factory
 
-import edu.austral.ingsis.starships.GameManager
-import edu.austral.ingsis.starships.MenuAction
-import edu.austral.ingsis.starships.MovementType
-import edu.austral.ingsis.starships.ShipMovement
-import edu.austral.ingsis.starships.model.*
+import GameManager
+import MenuAction
+import ShipMovement
 import javafx.scene.input.KeyCode
+import starships.enums.*
+import starships.model.*
 
-class ClassicGamesFactory {
+class GameFactory {
+
+    //returns a game with the starship game state and keycodes
 
     fun singlePlayerGame(): GameManager {
-        val gameShip = Ship(
+        val gameShip = Starship(
             "starship1",
             3,
             Position(450.0, 450.0),
             Vector(350.0, 0.0),
-            ClassicWeapon()
+            Weapons(BulletType.COMMON)
         )
         val gameState = GameState(
             800.0,
@@ -41,19 +43,19 @@ class ClassicGamesFactory {
     }
 
     fun twoPlayersGame(): GameManager {
-        val gameShip = Ship(
+        val gameShip = Starship(
             "starship1",
             3,
             Position(450.0, 450.0),
-            Vector(350.0, 0.0),
-            ClassicWeapon()
+            Vector(350.0, 2.0),
+            Weapons(BulletType.COMMON)
         )
-        val gameShip2 = Ship(
+        val gameShip2 = Starship(
             "starship2",
             3,
             Position(100.0, 100.0),
             Vector(350.0, 0.0),
-            DoubleWeapon()
+            Weapons(BulletType.SPECIAL)
         )
 
         val gameState = GameState(

@@ -1,8 +1,10 @@
-package edu.austral.ingsis.starships.model
+package starships.`interface`
 
+import starships.model.Position
+import starships.model.Vector
 import java.util.Optional
 
-sealed interface Collidable {
+interface Collidable {
     fun move(secondsPassed: Double, gameWidth: Double, gameHeight: Double): Collidable
     fun getId(): String
     fun getPosition(): Position

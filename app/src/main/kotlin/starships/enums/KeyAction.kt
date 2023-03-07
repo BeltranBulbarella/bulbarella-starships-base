@@ -1,4 +1,4 @@
-package edu.austral.ingsis.starships.model
+package starships.enums
 
 enum class KeyMovement {
     ACCELERATE,

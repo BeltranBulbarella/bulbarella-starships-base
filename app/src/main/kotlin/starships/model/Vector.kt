@@ -1,4 +1,4 @@
-package edu.austral.ingsis.starships.model
+package starships.model
 
 data class Vector(
     val rotationInDegrees: Double,

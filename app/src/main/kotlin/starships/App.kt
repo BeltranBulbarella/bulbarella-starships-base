@@ -1,20 +1,16 @@
-package edu.austral.ingsis.starships
 
-import edu.austral.ingsis.starships.factory.ClassicGamesFactory
-import edu.austral.ingsis.starships.model.*
 import edu.austral.ingsis.starships.ui.*
-import edu.austral.ingsis.starships.ui.ElementColliderType.Triangular
 import javafx.application.Application
 import javafx.application.Application.launch
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Label
-import javafx.scene.input.KeyCode
 import javafx.scene.layout.HBox
 import javafx.scene.layout.StackPane
 import javafx.scene.paint.Color
 import javafx.stage.Stage
+import starships.factory.GameFactory
 
 fun main() {
     launch(Starships::class.java)
@@ -25,17 +21,12 @@ class Starships() : Application() {
     private val facade = ElementsViewFacade(imageResolver)
     private val keyTracker = KeyTracker()
 
-    companion object {
-        val STARSHIP_IMAGE_REF = ImageRef("starship", 70.0, 70.0)
-        val BULLET_IMAGE_REF = ImageRef("bullet", 70.0, 70.0)
-    }
-
     override fun start(primaryStage: Stage) {
 
-        val factory = ClassicGamesFactory()
+        val factory = GameFactory()
         val gameManager = factory.twoPlayersGame()
 
-        gameManager.gameState.gameObjects.forEach { it ->
+        gameManager.gameState.gameObjects.forEach {
             facade.elements[it.getId()] = gameManager.elementToUI(it)
         }
 
@@ -92,19 +83,19 @@ class Starships() : Application() {
 }
 
 class TimeListener(
-        private val elements: Map<String, ElementModel>,
-        private val facade: ElementsViewFacade,
-        private val gameManager: GameManager,
-        private val div: HBox
+    private val elements: Map<String, ElementModel>,
+    private val facade: ElementsViewFacade,
+    private val gameManager: GameManager,
+    private val div: HBox
     ) : EventListener<TimePassed> {
 
     override fun handle(event: TimePassed) {
         gameManager.passTime(event.secondsSinceLastTime, facade.elements)
         gameManager.addElements(facade.elements)
-        gameManager.gameState.gameObjects.forEach {it ->
+        gameManager.gameState.gameObjects.forEach {
             elements.getValue(it.getId()).rotationInDegrees.set(it.getVector().rotationInDegrees)
-            elements.getValue(it.getId()).x.set(it.getPosition().x)
-            elements.getValue(it.getId()).y.set(it.getPosition().y)
+            elements.getValue(it.getId()).x.set(it.getPosition().getX())
+            elements.getValue(it.getId()).y.set(it.getPosition().getY())
         }
         updateLives(div)
     }

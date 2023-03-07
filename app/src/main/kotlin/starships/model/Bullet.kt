@@ -1,10 +1,11 @@
-package edu.austral.ingsis.starships.model
+package starships.model
 
+import starships.`interface`.Collidable
 import java.util.Optional
 import kotlin.math.cos
 import kotlin.math.sin
 
-data class Bullet(
+class Bullet(
     private val id: String,
     private val position: Position,
     private val vector: Vector,
@@ -12,11 +13,12 @@ data class Bullet(
 ) : Collidable {
 
     override fun move(secondsPassed: Double, gameWidth: Double, gameHeight: Double): Bullet {
+        //moves the same way as the asteroid
         val newPosition = Position(
-            position.x + vector.speed * -sin(Math.toRadians(vector.rotationInDegrees)) * secondsPassed * 150,
-            position.y + vector.speed * cos(Math.toRadians(vector.rotationInDegrees)) * secondsPassed * 150
+            position.getX() + vector.speed * -sin(Math.toRadians(vector.rotationInDegrees)) * secondsPassed * 150,
+            position.getY() + vector.speed * cos(Math.toRadians(vector.rotationInDegrees)) * secondsPassed * 150
         )
-        return this.copy(position = newPosition)
+        return Bullet(id, newPosition, vector, damage)
     }
 
     override fun getId(): String = id

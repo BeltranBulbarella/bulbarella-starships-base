@@ -1,7 +1,13 @@
-package edu.austral.ingsis.starships.model
+package starships.model
 
 data class Position(
-    val x: Double,
-    val y: Double
+    private val x: Double,
+    private val y: Double
 ){
+    fun getX(): Double {
+        return x
+    }
+    fun getY(): Double {
+        return y
+    }
 }
